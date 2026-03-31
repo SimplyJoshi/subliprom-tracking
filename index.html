@@ -12,363 +12,301 @@
       }
       body {
         font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: #0f172a;
+          -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+          "Segoe UI", Roboto, sans-serif;
+        background: #050505;
         min-height: 100vh;
-        color: #e2e8f0;
-        padding: 16px;
+        color: #f5f5f7;
+        padding: 20px 16px;
         display: flex;
         align-items: center;
         justify-content: center;
+        -webkit-font-smoothing: antialiased;
+      }
+      .bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background: url("bg.png") center/cover no-repeat;
+        opacity: 0.35;
       }
       .card {
-        background: #1e293b;
-        border-radius: 20px;
-        box-shadow:
-          0 8px 32px rgba(0, 0, 0, 0.4),
-          0 0 0 1px rgba(255, 255, 255, 0.05);
-        max-width: 480px;
+        position: relative;
+        z-index: 1;
+        background: rgba(28, 28, 30, 0.82);
+        backdrop-filter: blur(40px) saturate(1.5);
+        -webkit-backdrop-filter: blur(40px) saturate(1.5);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        max-width: 420px;
         width: 100%;
-        margin: 0 auto;
         overflow: hidden;
       }
       .header {
-        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-        padding: 28px 24px 20px;
-        position: relative;
-        overflow: hidden;
+        padding: 32px 28px 24px;
         text-align: center;
-      }
-      .header::after {
-        content: "";
-        position: absolute;
-        top: -50%;
-        right: -30%;
-        width: 200px;
-        height: 200px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 50%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
       }
       .logo {
-        height: 56px;
+        height: 48px;
         width: auto;
-        margin-bottom: 16px;
+        margin-bottom: 20px;
       }
-      .order-title {
-        font-size: 22px;
-        font-weight: 700;
-        line-height: 1.2;
-        margin-bottom: 12px;
-        color: #fff;
-      }
-      .token-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(8px);
-        border-radius: 100px;
-        padding: 5px 14px;
-        font-size: 12px;
+      .order-name {
+        font-size: 20px;
         font-weight: 600;
-        letter-spacing: 1px;
-        color: rgba(255, 255, 255, 0.9);
+        letter-spacing: -0.02em;
+        color: #f5f5f7;
+        margin-bottom: 10px;
+        line-height: 1.25;
+      }
+      .token {
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.4);
       }
       .body {
-        padding: 24px;
+        padding: 24px 28px 28px;
       }
-      .status-pill {
-        display: inline-flex;
+      .status {
+        display: flex;
         align-items: center;
         gap: 8px;
-        padding: 7px 18px;
-        border-radius: 100px;
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 4px;
+        margin-bottom: 28px;
       }
-      .status-dot {
+      .status-indicator {
         width: 8px;
         height: 8px;
         border-radius: 50%;
+        flex-shrink: 0;
       }
-      .status-dot.pulse {
-        animation: pulse 2s ease-in-out infinite;
+      .status-indicator.alive {
+        animation: breathe 2.5s ease-in-out infinite;
       }
-      @keyframes pulse {
+      @keyframes breathe {
         0%,
         100% {
           opacity: 1;
-          transform: scale(1);
         }
         50% {
-          opacity: 0.5;
-          transform: scale(1.4);
+          opacity: 0.35;
         }
       }
-      .section-label {
-        font-size: 10px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        color: #64748b;
-        margin: 28px 0 14px;
+      .status-text {
+        font-size: 14px;
+        font-weight: 500;
       }
-
-      /* Timeline */
       .timeline {
+        margin-bottom: 32px;
+      }
+      .timeline-step {
         display: flex;
         align-items: flex-start;
-        padding: 20px 0 8px;
+        gap: 16px;
         position: relative;
+        min-height: 52px;
       }
-      .step {
+      .timeline-step:last-child {
+        min-height: auto;
+      }
+      .timeline-track {
         display: flex;
         flex-direction: column;
         align-items: center;
-        flex: 1;
-        position: relative;
+        width: 24px;
+        flex-shrink: 0;
+        padding-top: 2px;
       }
-      .step-circle {
-        width: 36px;
-        height: 36px;
+      .timeline-dot {
+        width: 12px;
+        height: 12px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.4s ease;
+        flex-shrink: 0;
         position: relative;
         z-index: 1;
+        transition: all 0.3s ease;
       }
-      .step-circle.done {
-        background: #22c55e;
-        border: 2px solid #22c55e;
-        box-shadow: 0 0 12px rgba(34, 197, 94, 0.3);
+      .timeline-dot.done {
+        background: #30d158;
       }
-      .step-circle.active {
-        background: #1e293b;
-        border: 2px solid #22c55e;
-        position: relative;
+      .timeline-dot.active {
+        background: #30d158;
+        box-shadow: 0 0 0 4px rgba(48, 209, 88, 0.2);
       }
-      .step-circle.active::before,
-      .step-circle.active::after {
+      .timeline-dot.active::after {
         content: "";
         position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 36px;
-        height: 36px;
+        inset: -6px;
         border-radius: 50%;
-        border: 2px solid rgba(34, 197, 94, 0.5);
-        transform: translate(-50%, -50%) scale(1);
-        animation: radar 2s ease-out infinite;
+        border: 1.5px solid rgba(48, 209, 88, 0.3);
+        animation: ring 2.5s ease-out infinite;
       }
-      .step-circle.active::after {
-        animation-delay: 1s;
-      }
-      @keyframes radar {
+      @keyframes ring {
         0% {
-          transform: translate(-50%, -50%) scale(1);
-          opacity: 0.8;
+          transform: scale(1);
+          opacity: 0.6;
         }
         100% {
-          transform: translate(-50%, -50%) scale(2.2);
+          transform: scale(2);
           opacity: 0;
         }
       }
-      .step-circle.active .active-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #22c55e;
-        box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
-        animation: dot-pulse 2s ease-in-out infinite;
-        z-index: 2;
-        position: relative;
+      .timeline-dot.pending {
+        background: rgba(255, 255, 255, 0.12);
       }
-      @keyframes dot-pulse {
-        0%,
-        100% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.2);
-        }
+      .timeline-dot.canceled {
+        background: #ff453a;
       }
-      .step-circle.pending {
-        background: #1e293b;
-        border: 2px solid #334155;
+      .timeline-line {
+        width: 1.5px;
+        flex: 1;
+        min-height: 28px;
+        margin: 4px 0;
+        transition: background 0.3s ease;
       }
-      .step-circle.canceled {
-        background: #1e293b;
-        border: 2px solid #7f1d1d;
+      .timeline-content {
+        padding-top: 0;
+        flex: 1;
       }
-      .step-circle svg {
-        width: 16px;
-        height: 16px;
-      }
-      .step-label {
-        margin-top: 10px;
-        font-size: 11px;
-        text-align: center;
+      .timeline-label {
+        font-size: 14px;
         font-weight: 500;
-        color: #64748b;
-        transition: color 0.3s;
+        line-height: 1;
+        transition: color 0.3s ease;
       }
-      .step-label.done {
-        color: #86efac;
-        font-weight: 600;
+      .timeline-label.done,
+      .timeline-label.active {
+        color: #f5f5f7;
       }
-      .step-label.active {
-        color: #86efac;
-        font-weight: 700;
+      .timeline-label.pending {
+        color: rgba(255, 255, 255, 0.3);
       }
-      .step-label.canceled {
-        color: #fca5a5;
+      .timeline-label.canceled {
+        color: #ff453a;
         text-decoration: line-through;
       }
-      .connector {
-        height: 2px;
-        flex: 0.5;
-        margin-top: 17px;
-        border-radius: 1px;
-        transition: background 0.4s;
-      }
-
-      /* Info grid */
-      .info-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      .info-item {
-        background: #0f172a;
-        border-radius: 12px;
-        padding: 12px 14px;
-        border: 1px solid #1e293b;
-      }
-      .info-item .label {
-        font-size: 9px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #64748b;
-        margin-bottom: 4px;
-      }
-      .info-item .value {
-        font-size: 14px;
-        font-weight: 600;
-        color: #e2e8f0;
-      }
-      .area-badge {
-        display: inline-block;
-        background: rgba(59, 130, 246, 0.15);
-        color: #93c5fd;
-        border-radius: 8px;
-        padding: 3px 10px;
+      .timeline-sub {
         font-size: 12px;
-        font-weight: 600;
+        color: rgba(255, 255, 255, 0.3);
+        margin-top: 4px;
+      }
+      .details {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .detail-label {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 400;
+      }
+      .detail-value {
+        font-size: 13px;
+        color: #f5f5f7;
+        font-weight: 500;
+        text-align: right;
+      }
+      .area-chip {
+        display: inline-block;
+        background: rgba(48, 209, 88, 0.1);
+        color: #30d158;
+        border-radius: 6px;
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .separator {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.06);
+        margin: 4px 0;
       }
       .footer {
+        padding: 20px 28px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
         text-align: center;
-        padding: 20px 24px 28px;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
       }
-      .footer .brand {
-        font-size: 12px;
-        font-weight: 600;
-        color: #3b82f6;
-        margin-bottom: 2px;
-      }
-      .footer .sub {
+      .footer-text {
         font-size: 11px;
-        color: #475569;
+        color: rgba(255, 255, 255, 0.2);
       }
-      .update-text {
+      .updated {
         font-size: 11px;
-        color: #475569;
-        margin-top: 22px;
+        color: rgba(255, 255, 255, 0.2);
         text-align: center;
+        margin-top: 20px;
       }
-      .canceled-msg {
+      .canceled-banner {
         text-align: center;
-        padding: 20px 0;
-        color: #fca5a5;
-        font-size: 14px;
-        font-weight: 600;
+        padding: 12px 0;
+        font-size: 13px;
+        font-weight: 500;
+        color: #ff453a;
       }
-
-      /* Loading */
       .loading {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 80px 24px;
+        padding: 80px 28px;
         text-align: center;
       }
       .spinner {
-        width: 36px;
-        height: 36px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
-        border: 3px solid #334155;
-        border-top-color: #3b82f6;
-        animation: spin 1s linear infinite;
+        border: 2.5px solid rgba(255, 255, 255, 0.1);
+        border-top-color: rgba(255, 255, 255, 0.6);
+        animation: spin 0.8s linear infinite;
       }
       @keyframes spin {
         to {
           transform: rotate(360deg);
         }
       }
-      .loading-text {
+      .loading p {
         margin-top: 16px;
         font-size: 13px;
-        color: #475569;
+        color: rgba(255, 255, 255, 0.3);
       }
-
-      /* Error */
-      .error {
+      .error-page {
         text-align: center;
-        padding: 48px 32px;
+        padding: 56px 28px;
       }
-      .error-icon {
-        font-size: 48px;
-        margin-bottom: 16px;
+      .error-page h1 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 6px;
       }
-      .error h1 {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        color: #e2e8f0;
-      }
-      .error p {
+      .error-page p {
         font-size: 14px;
-        color: #64748b;
-        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.5;
       }
-
       @media (max-width: 360px) {
-        .info-grid {
-          grid-template-columns: 1fr;
-        }
-        .order-title {
-          font-size: 18px;
+        .order-name {
+          font-size: 17px;
         }
       }
     </style>
   </head>
   <body>
+    <div class="bg"></div>
     <div class="card" id="app">
       <div class="loading">
         <div class="spinner"></div>
-        <p class="loading-text">Cargando pedido...</p>
+        <p>Cargando...</p>
       </div>
     </div>
     <script>
       var API =
         "https://dfkmoohszzkqouehkoff.supabase.co/functions/v1/order-tracking";
       var token = new URLSearchParams(window.location.search).get("token");
-      var LOGO = "logo.png";
 
       function esc(s) {
         if (!s) return "";
@@ -380,158 +318,138 @@
         if (!s) return "\u2014";
         return new Date(s).toLocaleDateString("es-HN", {
           day: "numeric",
-          month: "long",
+          month: "short",
           year: "numeric",
         });
       }
       function relTime(s) {
         if (!s) return "";
         var m = Math.floor((Date.now() - new Date(s).getTime()) / 60000);
-        if (m < 1) return "hace un momento";
-        if (m < 60) return "hace " + m + " min";
+        if (m < 1) return "Ahora";
+        if (m < 60) return "Hace " + m + " min";
         var h = Math.floor(m / 60);
-        if (h < 24) return "hace " + h + "h";
-        return "hace " + Math.floor(h / 24) + "d";
+        if (h < 24) return "Hace " + h + "h";
+        return "Hace " + Math.floor(h / 24) + "d";
       }
 
-      var checkSvg =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-      var xSvg =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-
       function render(o) {
-        var canceled = o.status === "Cancelado";
-        var completed = o.status === "Completado";
-        var enProceso = o.status === "En Proceso";
+        var canceled = o.status === "Cancelado",
+          completed = o.status === "Completado",
+          enProceso = o.status === "En Proceso";
         var step = canceled ? -1 : completed ? 3 : enProceso ? 1 : 0;
+        var sc = canceled
+          ? "#ff453a"
+          : completed
+            ? "#30d158"
+            : enProceso
+              ? "#ff9f0a"
+              : "#0a84ff";
+        var sl = canceled
+          ? "Cancelado"
+          : completed
+            ? "Completado"
+            : enProceso
+              ? "En proceso"
+              : "Pendiente";
+        var alive = !canceled && !completed;
 
-        var sc, sb, sl;
-        if (canceled) {
-          sc = "#ef4444";
-          sb = "rgba(239,68,68,.1)";
-          sl = "Cancelado";
-        } else if (completed) {
-          sc = "#22c55e";
-          sb = "rgba(34,197,94,.1)";
-          sl = "Completado";
-        } else if (enProceso) {
-          sc = "#f59e0b";
-          sb = "rgba(245,158,11,.1)";
-          sl = "En Proceso";
-        } else {
-          sc = "#3b82f6";
-          sb = "rgba(59,130,246,.1)";
-          sl = "Pendiente";
-        }
+        var steps = [
+          { name: "Recibido", sub: fmtDate(o.created_at) },
+          { name: "En Proceso", sub: "En taller" },
+          {
+            name: "Completado",
+            sub: o.scheduled_at ? "Est. " + fmtDate(o.scheduled_at) : "",
+          },
+        ];
 
-        var names = ["Recibido", "En Proceso", "Completado"];
         var tl = "";
-
-        if (canceled) {
-          tl = '<div class="timeline">';
-          for (var i = 0; i < 3; i++) {
+        for (var i = 0; i < steps.length; i++) {
+          var done = !canceled && i < step,
+            act = !canceled && i === step,
+            cn = canceled
+              ? "canceled"
+              : done
+                ? "done"
+                : act
+                  ? "active"
+                  : "pending";
+          var lineColor = done ? "rgba(48,209,88,.4)" : "rgba(255,255,255,.06)";
+          var showLine = i < steps.length - 1;
+          tl += '<div class="timeline-step"><div class="timeline-track">';
+          tl += '<div class="timeline-dot ' + cn + '"></div>';
+          if (showLine)
             tl +=
-              '<div class="step"><div class="step-circle canceled">' +
-              xSvg +
-              "</div>";
-            tl +=
-              '<span class="step-label canceled">' + names[i] + "</span></div>";
-            if (i < 2)
-              tl += '<div class="connector" style="background:#7f1d1d"></div>';
-          }
-          tl += '</div><p class="canceled-msg">Este pedido fue cancelado</p>';
-        } else {
-          tl = '<div class="timeline">';
-          for (var i = 0; i < 3; i++) {
-            var done = i < step,
-              act = i === step;
-            var cls = done ? "done" : act ? "active" : "pending";
-            var inner = "";
-            if (done) inner = checkSvg;
-            else if (act) inner = '<div class="active-dot"></div>';
-
-            tl +=
-              '<div class="step"><div class="step-circle ' +
-              cls +
-              '">' +
-              inner +
-              "</div>";
-            tl +=
-              '<span class="step-label ' +
-              cls +
-              '">' +
-              names[i] +
-              "</span></div>";
-            if (i < 2) {
-              var lc = done ? "#22c55e" : "#334155";
-              tl +=
-                '<div class="connector" style="background:' + lc + '"></div>';
-            }
-          }
-          tl += "</div>";
+              '<div class="timeline-line" style="background:' +
+              lineColor +
+              '"></div>';
+          tl += '</div><div class="timeline-content">';
+          tl +=
+            '<div class="timeline-label ' +
+            cn +
+            '">' +
+            steps[i].name +
+            "</div>";
+          if (steps[i].sub && (done || act))
+            tl += '<div class="timeline-sub">' + steps[i].sub + "</div>";
+          tl += "</div></div>";
         }
+        if (canceled)
+          tl += '<div class="canceled-banner">Este pedido fue cancelado</div>';
 
-        document.title = "Pedido " + esc(o.tracking_token) + " - Subliprom";
-        var h = '<div class="header">';
-        h +=
-          '<img src="' +
-          LOGO +
-          '" alt="Subliprom" class="logo" onerror="this.style.display=\'none\'">';
-        h += '<div class="order-title">' + esc(o.order_name) + "</div>";
-        h +=
-          '<div class="token-badge">&#127991; ' +
-          esc(o.tracking_token) +
-          "</div></div>";
-
-        var b = '<div class="body">';
-        b +=
-          '<div class="status-pill" style="background:' +
-          sb +
-          ";color:" +
-          sc +
-          '">';
-        b +=
-          '<div class="status-dot' +
-          (!canceled && !completed ? " pulse" : "") +
+        document.title =
+          "Pedido " + esc(o.tracking_token) + " \u2014 Subliprom";
+        var html = '<div class="header">';
+        html +=
+          '<img src="logo.png" alt="Subliprom" class="logo" onerror="this.style.display=\'none\'">';
+        html += '<div class="order-name">' + esc(o.order_name) + "</div>";
+        html += '<div class="token">' + esc(o.tracking_token) + "</div></div>";
+        html += '<div class="body">';
+        html +=
+          '<div class="status"><div class="status-indicator' +
+          (alive ? " alive" : "") +
           '" style="background:' +
           sc +
-          '"></div>' +
-          esc(sl) +
-          "</div>";
-        b += '<div class="section-label">Progreso del pedido</div>' + tl;
-        b += '<div class="section-label">Detalles</div>';
-        b += '<div class="info-grid">';
-        b +=
-          '<div class="info-item"><div class="label">Cliente</div><div class="value">' +
+          '"></div>';
+        html +=
+          '<div class="status-text" style="color:' +
+          sc +
+          '">' +
+          sl +
+          "</div></div>";
+        html += '<div class="timeline">' + tl + "</div>";
+        html += '<div class="details">';
+        html +=
+          '<div class="detail-row"><span class="detail-label">Cliente</span><span class="detail-value">' +
           (esc(o.client_name) || "\u2014") +
-          "</div></div>";
-        b +=
-          '<div class="info-item"><div class="label">\u00c1rea</div><div class="value"><span class="area-badge">' +
+          "</span></div>";
+        html += '<div class="separator"></div>';
+        html +=
+          '<div class="detail-row"><span class="detail-label">\u00c1rea de trabajo</span><span class="detail-value"><span class="area-chip">' +
           (esc(o.work_area) || "\u2014") +
-          "</span></div></div>";
-        b +=
-          '<div class="info-item"><div class="label">Entrega estimada</div><div class="value">' +
+          "</span></span></div>";
+        html += '<div class="separator"></div>';
+        html +=
+          '<div class="detail-row"><span class="detail-label">Entrega estimada</span><span class="detail-value">' +
           (o.scheduled_at ? fmtDate(o.scheduled_at) : "\u2014") +
-          "</div></div>";
-        b +=
-          '<div class="info-item"><div class="label">Recibido</div><div class="value">' +
+          "</span></div>";
+        html += '<div class="separator"></div>';
+        html +=
+          '<div class="detail-row"><span class="detail-label">Recibido</span><span class="detail-value">' +
           fmtDate(o.created_at) +
-          "</div></div>";
-        b += "</div>";
-        b +=
-          '<p class="update-text">Actualizado ' +
+          "</span></div>";
+        html += "</div>";
+        html +=
+          '<div class="updated">' +
           relTime(o.updated_at) +
-          " &middot; Se actualiza cada 60s</p></div>";
-
-        var f =
-          '<div class="footer"><div class="brand">Subliprom</div><div class="sub">¡Gracias por elegirnos!</div></div>';
-
-        document.getElementById("app").innerHTML = h + b + f;
+          " \u00b7 Actualiza cada 60s</div></div>";
+        html +=
+          '<div class="footer"><div class="footer-text">Subliprom \u00b7 Sublimaci\u00f3n, bordado y banners</div></div>';
+        document.getElementById("app").innerHTML = html;
       }
 
       function showError() {
         document.getElementById("app").innerHTML =
-          '<div class="error"><div class="error-icon">&#128269;</div><h1>Pedido no encontrado</h1><p>No encontramos tu pedido. Verific\u00e1 el enlace o contact\u00e1 al taller.</p><div style="margin-top:32px;font-size:12px;font-weight:600;color:#3b82f6">Subliprom</div></div>';
+          '<div class="error-page"><h1>Pedido no encontrado</h1><p>Verific\u00e1 el enlace o contact\u00e1 al taller.</p></div>';
       }
 
       function load() {
