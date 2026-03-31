@@ -13,170 +13,274 @@
       body {
         font-family:
           -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        background: #f1f5f9;
+        background: #0f172a;
         min-height: 100vh;
-        color: #1e293b;
+        color: #e2e8f0;
         padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-      .c {
-        background: #fff;
+      .card {
+        background: #1e293b;
         border-radius: 20px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
         max-width: 480px;
+        width: 100%;
         margin: 0 auto;
         overflow: hidden;
       }
-      .h {
-        background: linear-gradient(135deg, #1e40af, #3b82f6);
+      .header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
         padding: 28px 24px 20px;
-        color: #fff;
+        position: relative;
+        overflow: hidden;
       }
-      .h .b {
-        font-size: 11px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        opacity: 0.8;
-        margin-bottom: 4px;
+      .header::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -30%;
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
       }
-      .h .t {
+      .logo {
+        height: 32px;
+        width: auto;
+        margin-bottom: 12px;
+        filter: brightness(0) invert(1);
+        opacity: 0.9;
+      }
+      .order-title {
         font-size: 22px;
         font-weight: 700;
         line-height: 1.2;
         margin-bottom: 12px;
+        color: #fff;
       }
-      .tk {
+      .token-badge {
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(8px);
         border-radius: 100px;
-        padding: 4px 12px;
+        padding: 5px 14px;
         font-size: 12px;
         font-weight: 600;
         letter-spacing: 1px;
+        color: rgba(255, 255, 255, 0.9);
       }
-      .bd {
+      .body {
         padding: 24px;
       }
-      .sp {
+      .status-pill {
         display: inline-flex;
         align-items: center;
-        gap: 6px;
-        padding: 6px 16px;
+        gap: 8px;
+        padding: 7px 18px;
         border-radius: 100px;
         font-size: 13px;
         font-weight: 600;
-        border: 1.5px solid;
         margin-bottom: 4px;
       }
-      .sd {
+      .status-dot {
         width: 8px;
         height: 8px;
         border-radius: 50%;
       }
-      .sl {
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #94a3b8;
-        margin: 24px 0 12px;
+      .status-dot.pulse {
+        animation: pulse 2s ease-in-out infinite;
       }
-      .ig {
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.4);
+        }
+      }
+      .section-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #64748b;
+        margin: 28px 0 14px;
+      }
+
+      /* Timeline */
+      .timeline {
+        display: flex;
+        align-items: flex-start;
+        padding: 20px 0 8px;
+        position: relative;
+      }
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        position: relative;
+      }
+      .step-circle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s ease;
+        position: relative;
+        z-index: 1;
+      }
+      .step-circle.done {
+        background: #3b82f6;
+        border: 2px solid #3b82f6;
+        box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+      }
+      .step-circle.active {
+        background: #1e293b;
+        border: 2px solid #3b82f6;
+        box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
+      }
+      .step-circle.active .active-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #3b82f6;
+        animation: glow 2s ease-in-out infinite;
+      }
+      @keyframes glow {
+        0%,
+        100% {
+          box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 12px rgba(59, 130, 246, 0.8);
+        }
+      }
+      .step-circle.pending {
+        background: #1e293b;
+        border: 2px solid #334155;
+      }
+      .step-circle.canceled {
+        background: #1e293b;
+        border: 2px solid #7f1d1d;
+      }
+      .step-circle svg {
+        width: 16px;
+        height: 16px;
+      }
+      .step-label {
+        margin-top: 10px;
+        font-size: 11px;
+        text-align: center;
+        font-weight: 500;
+        color: #64748b;
+        transition: color 0.3s;
+      }
+      .step-label.done,
+      .step-label.active {
+        color: #93c5fd;
+        font-weight: 600;
+      }
+      .step-label.canceled {
+        color: #fca5a5;
+        text-decoration: line-through;
+      }
+      .connector {
+        height: 2px;
+        flex: 0.5;
+        margin-top: 17px;
+        border-radius: 1px;
+        transition: background 0.4s;
+      }
+
+      /* Info grid */
+      .info-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 10px;
       }
-      .ii {
-        background: #f8fafc;
+      .info-item {
+        background: #0f172a;
         border-radius: 12px;
         padding: 12px 14px;
+        border: 1px solid #1e293b;
       }
-      .ii .l {
-        font-size: 10px;
-        font-weight: 600;
+      .info-item .label {
+        font-size: 9px;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.8px;
-        color: #94a3b8;
+        letter-spacing: 1px;
+        color: #64748b;
         margin-bottom: 4px;
       }
-      .ii .v {
+      .info-item .value {
         font-size: 14px;
         font-weight: 600;
-        color: #1e293b;
+        color: #e2e8f0;
       }
-      .wa {
+      .area-badge {
         display: inline-block;
-        background: #eff6ff;
-        color: #1d4ed8;
+        background: rgba(59, 130, 246, 0.15);
+        color: #93c5fd;
         border-radius: 8px;
         padding: 3px 10px;
         font-size: 12px;
         font-weight: 600;
       }
-      .ft {
+      .footer {
         text-align: center;
         padding: 20px 24px 28px;
-        border-top: 1px solid #f1f5f9;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
       }
-      .ft .fb {
+      .footer .brand {
         font-size: 12px;
         font-weight: 600;
         color: #3b82f6;
         margin-bottom: 2px;
       }
-      .ft .fs {
+      .footer .sub {
         font-size: 11px;
-        color: #94a3b8;
+        color: #475569;
       }
-      .ut {
+      .update-text {
         font-size: 11px;
-        color: #94a3b8;
-        margin-top: 20px;
+        color: #475569;
+        margin-top: 22px;
         text-align: center;
       }
-      .tl {
-        display: flex;
-        align-items: flex-start;
-        padding: 20px 0 8px;
-      }
-      .ts {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 1;
-      }
-      .tc {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .tn {
-        margin-top: 8px;
-        font-size: 11px;
+      .canceled-msg {
         text-align: center;
+        padding: 20px 0;
+        color: #fca5a5;
+        font-size: 14px;
+        font-weight: 600;
       }
-      .tln {
-        height: 2px;
-        flex: 0.5;
-        margin-top: 15px;
-      }
-      .ld {
+
+      /* Loading */
+      .loading {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 60px 24px;
+        padding: 80px 24px;
         text-align: center;
       }
-      .ld .sp1 {
-        width: 32px;
-        height: 32px;
+      .spinner {
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-        border: 3px solid #e5e7eb;
+        border: 3px solid #334155;
         border-top-color: #3b82f6;
         animation: spin 1s linear infinite;
       }
@@ -185,29 +289,55 @@
           transform: rotate(360deg);
         }
       }
+      .loading-text {
+        margin-top: 16px;
+        font-size: 13px;
+        color: #475569;
+      }
+
+      /* Error */
+      .error {
+        text-align: center;
+        padding: 48px 32px;
+      }
+      .error-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+      }
+      .error h1 {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #e2e8f0;
+      }
+      .error p {
+        font-size: 14px;
+        color: #64748b;
+        line-height: 1.6;
+      }
+
       @media (max-width: 360px) {
-        .ig {
+        .info-grid {
           grid-template-columns: 1fr;
         }
-        .h .t {
+        .order-title {
           font-size: 18px;
         }
       }
     </style>
   </head>
   <body>
-    <div class="c" id="app">
-      <div class="ld">
-        <div class="sp1"></div>
-        <p style="margin-top: 16px; font-size: 13px; color: #94a3b8">
-          Cargando pedido...
-        </p>
+    <div class="card" id="app">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p class="loading-text">Cargando pedido...</p>
       </div>
     </div>
     <script>
       var API =
         "https://dfkmoohszzkqouehkoff.supabase.co/functions/v1/order-tracking";
       var token = new URLSearchParams(window.location.search).get("token");
+      var LOGO = "logo.png";
 
       function esc(s) {
         if (!s) return "";
@@ -233,93 +363,144 @@
         return "hace " + Math.floor(h / 24) + "d";
       }
 
+      var checkSvg =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      var xSvg =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
       function render(o) {
-        var canceled = o.status === "Cancelado",
-          completed = o.status === "Completado";
-        var step = canceled ? -1 : completed ? 2 : 0;
-        var sc = canceled ? "#dc2626" : completed ? "#16a34a" : "#d97706";
-        var sb = canceled ? "#fef2f2" : completed ? "#f0fdf4" : "#fffbeb";
-        var sbo = canceled ? "#fecaca" : completed ? "#bbf7d0" : "#fde68a";
-        var sl = canceled
-          ? "Cancelado"
-          : completed
-            ? "Completado"
-            : "Pendiente";
+        var canceled = o.status === "Cancelado";
+        var completed = o.status === "Completado";
+        var enProceso = o.status === "En Proceso";
+        var step = canceled ? -1 : completed ? 3 : enProceso ? 1 : 0;
+
+        var sc, sb, sl;
+        if (canceled) {
+          sc = "#ef4444";
+          sb = "rgba(239,68,68,.1)";
+          sl = "Cancelado";
+        } else if (completed) {
+          sc = "#22c55e";
+          sb = "rgba(34,197,94,.1)";
+          sl = "Completado";
+        } else if (enProceso) {
+          sc = "#f59e0b";
+          sb = "rgba(245,158,11,.1)";
+          sl = "En Proceso";
+        } else {
+          sc = "#3b82f6";
+          sb = "rgba(59,130,246,.1)";
+          sl = "Pendiente";
+        }
+
         var names = ["Recibido", "En Proceso", "Completado"];
         var tl = "";
+
         if (canceled) {
-          tl =
-            '<div style="text-align:center;padding:16px 0"><p style="color:#dc2626;font-size:14px;font-weight:600">Este pedido fue cancelado</p></div>';
+          tl = '<div class="timeline">';
+          for (var i = 0; i < 3; i++) {
+            tl +=
+              '<div class="step"><div class="step-circle canceled">' +
+              xSvg +
+              "</div>";
+            tl +=
+              '<span class="step-label canceled">' + names[i] + "</span></div>";
+            if (i < 2)
+              tl += '<div class="connector" style="background:#7f1d1d"></div>';
+          }
+          tl += '</div><p class="canceled-msg">Este pedido fue cancelado</p>';
         } else {
-          tl = '<div class="tl">';
+          tl = '<div class="timeline">';
           for (var i = 0; i < 3; i++) {
             var done = i < step,
               act = i === step;
-            var bg = done ? "#3b82f6" : act ? "#eff6ff" : "#f9fafb";
-            var br = done || act ? "#3b82f6" : "#e5e7eb";
-            var tc = done || act ? "#1e40af" : "#9ca3af";
-            var inn = done
-              ? '<span style="color:#fff;font-size:14px">&#10003;</span>'
-              : act
-                ? '<span style="color:#3b82f6;font-size:8px">&#9679;</span>'
-                : "";
-            var fw = act ? "700" : "500";
+            var cls = done ? "done" : act ? "active" : "pending";
+            var inner = "";
+            if (done) inner = checkSvg;
+            else if (act) inner = '<div class="active-dot"></div>';
+
             tl +=
-              '<div class="ts"><div class="tc" style="background:' +
-              bg +
-              ";border:2px solid " +
-              br +
+              '<div class="step"><div class="step-circle ' +
+              cls +
               '">' +
-              inn +
-              '</div><span class="tn" style="font-weight:' +
-              fw +
-              ";color:" +
-              tc +
+              inner +
+              "</div>";
+            tl +=
+              '<span class="step-label ' +
+              cls +
               '">' +
               names[i] +
               "</span></div>";
             if (i < 2) {
-              var lc = done ? "#3b82f6" : "#e5e7eb";
-              tl += '<div class="tln" style="background:' + lc + '"></div>';
+              var lc = done ? "#3b82f6" : "#334155";
+              tl +=
+                '<div class="connector" style="background:' + lc + '"></div>';
             }
           }
           tl += "</div>";
         }
 
         document.title = "Pedido " + esc(o.tracking_token) + " - Subliprom";
-        document.getElementById("app").innerHTML =
-          '<div class="h"><div class="b">Subliprom</div><div class="t">' +
-          esc(o.order_name) +
-          '</div><div class="tk">&#127991; ' +
+        var h = '<div class="header">';
+        h +=
+          '<img src="' +
+          LOGO +
+          '" alt="Subliprom" class="logo" onerror="this.style.display=\'none\'">';
+        h += '<div class="order-title">' + esc(o.order_name) + "</div>";
+        h +=
+          '<div class="token-badge">&#127991; ' +
           esc(o.tracking_token) +
-          '</div></div><div class="bd"><div class="sp" style="background:' +
+          "</div></div>";
+
+        var b = '<div class="body">';
+        b +=
+          '<div class="status-pill" style="background:' +
           sb +
-          ";border-color:" +
-          sbo +
           ";color:" +
           sc +
-          '"><div class="sd" style="background:' +
+          '">';
+        b +=
+          '<div class="status-dot' +
+          (!canceled && !completed ? " pulse" : "") +
+          '" style="background:' +
           sc +
           '"></div>' +
           esc(sl) +
-          '</div><div class="sl">Progreso del pedido</div>' +
-          tl +
-          '<div class="sl">Detalles</div><div class="ig"><div class="ii"><div class="l">Cliente</div><div class="v">' +
+          "</div>";
+        b += '<div class="section-label">Progreso del pedido</div>' + tl;
+        b += '<div class="section-label">Detalles</div>';
+        b += '<div class="info-grid">';
+        b +=
+          '<div class="info-item"><div class="label">Cliente</div><div class="value">' +
           (esc(o.client_name) || "\u2014") +
-          '</div></div><div class="ii"><div class="l">\u00c1rea</div><div class="v"><span class="wa">' +
+          "</div></div>";
+        b +=
+          '<div class="info-item"><div class="label">\u00c1rea</div><div class="value"><span class="area-badge">' +
           (esc(o.work_area) || "\u2014") +
-          '</span></div></div><div class="ii"><div class="l">Entrega estimada</div><div class="v">' +
+          "</span></div></div>";
+        b +=
+          '<div class="info-item"><div class="label">Entrega estimada</div><div class="value">' +
           (o.scheduled_at ? fmtDate(o.scheduled_at) : "\u2014") +
-          '</div></div><div class="ii"><div class="l">Recibido</div><div class="v">' +
+          "</div></div>";
+        b +=
+          '<div class="info-item"><div class="label">Recibido</div><div class="value">' +
           fmtDate(o.created_at) +
-          '</div></div></div><p class="ut">Actualizado ' +
+          "</div></div>";
+        b += "</div>";
+        b +=
+          '<p class="update-text">Actualizado ' +
           relTime(o.updated_at) +
-          ' &middot; Se actualiza cada 60s</p></div><div class="ft"><div class="fb">Subliprom</div><div class="fs">Taller de sublimaci\u00f3n, bordado y banners</div></div>';
+          " &middot; Se actualiza cada 60s</p></div>";
+
+        var f =
+          '<div class="footer"><div class="brand">Subliprom</div><div class="sub">Taller de sublimaci\u00f3n, bordado y banners</div></div>';
+
+        document.getElementById("app").innerHTML = h + b + f;
       }
 
       function showError() {
         document.getElementById("app").innerHTML =
-          '<div style="text-align:center;padding:40px 32px"><div style="font-size:48px;margin-bottom:16px">&#128269;</div><h1 style="font-size:20px;font-weight:700;margin-bottom:8px">Pedido no encontrado</h1><p style="font-size:14px;color:#64748b;line-height:1.6">No encontramos tu pedido. Verific\u00e1 el enlace o contact\u00e1 al taller.</p><div style="margin-top:32px;font-size:12px;font-weight:600;color:#3b82f6">Subliprom</div></div>';
+          '<div class="error"><div class="error-icon">&#128269;</div><h1>Pedido no encontrado</h1><p>No encontramos tu pedido. Verific\u00e1 el enlace o contact\u00e1 al taller.</p><div style="margin-top:32px;font-size:12px;font-weight:600;color:#3b82f6">Subliprom</div></div>';
       }
 
       function load() {
