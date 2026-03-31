@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Seguimiento de Pedido - Subliprom</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #f1f5f9;
+        min-height: 100vh;
+        color: #1e293b;
+        padding: 16px;
+      }
+      .c {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        max-width: 480px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+      .h {
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
+        padding: 28px 24px 20px;
+        color: #fff;
+      }
+      .h .b {
+        font-size: 11px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        opacity: 0.8;
+        margin-bottom: 4px;
+      }
+      .h .t {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 12px;
+      }
+      .tk {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 100px;
+        padding: 4px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px;
+      }
+      .bd {
+        padding: 24px;
+      }
+      .sp {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 16px;
+        border-radius: 100px;
+        font-size: 13px;
+        font-weight: 600;
+        border: 1.5px solid;
+        margin-bottom: 4px;
+      }
+      .sd {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .sl {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #94a3b8;
+        margin: 24px 0 12px;
+      }
+      .ig {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .ii {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+      .ii .l {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: #94a3b8;
+        margin-bottom: 4px;
+      }
+      .ii .v {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1e293b;
+      }
+      .wa {
+        display: inline-block;
+        background: #eff6ff;
+        color: #1d4ed8;
+        border-radius: 8px;
+        padding: 3px 10px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .ft {
+        text-align: center;
+        padding: 20px 24px 28px;
+        border-top: 1px solid #f1f5f9;
+      }
+      .ft .fb {
+        font-size: 12px;
+        font-weight: 600;
+        color: #3b82f6;
+        margin-bottom: 2px;
+      }
+      .ft .fs {
+        font-size: 11px;
+        color: #94a3b8;
+      }
+      .ut {
+        font-size: 11px;
+        color: #94a3b8;
+        margin-top: 20px;
+        text-align: center;
+      }
+      .tl {
+        display: flex;
+        align-items: flex-start;
+        padding: 20px 0 8px;
+      }
+      .ts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+      }
+      .tc {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tn {
+        margin-top: 8px;
+        font-size: 11px;
+        text-align: center;
+      }
+      .tln {
+        height: 2px;
+        flex: 0.5;
+        margin-top: 15px;
+      }
+      .ld {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 24px;
+        text-align: center;
+      }
+      .ld .sp1 {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 3px solid #e5e7eb;
+        border-top-color: #3b82f6;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @media (max-width: 360px) {
+        .ig {
+          grid-template-columns: 1fr;
+        }
+        .h .t {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="c" id="app">
+      <div class="ld">
+        <div class="sp1"></div>
+        <p style="margin-top: 16px; font-size: 13px; color: #94a3b8">
+          Cargando pedido...
+        </p>
+      </div>
+    </div>
+    <script>
+      var API =
+        "https://dfkmoohszzkqouehkoff.supabase.co/functions/v1/order-tracking";
+      var token = new URLSearchParams(window.location.search).get("token");
+
+      function esc(s) {
+        if (!s) return "";
+        var d = document.createElement("div");
+        d.textContent = s;
+        return d.innerHTML;
+      }
+      function fmtDate(s) {
+        if (!s) return "\u2014";
+        return new Date(s).toLocaleDateString("es-HN", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+      }
+      function relTime(s) {
+        if (!s) return "";
+        var m = Math.floor((Date.now() - new Date(s).getTime()) / 60000);
+        if (m < 1) return "hace un momento";
+        if (m < 60) return "hace " + m + " min";
+        var h = Math.floor(m / 60);
+        if (h < 24) return "hace " + h + "h";
+        return "hace " + Math.floor(h / 24) + "d";
+      }
+
+      function render(o) {
+        var canceled = o.status === "Cancelado",
+          completed = o.status === "Completado";
+        var step = canceled ? -1 : completed ? 2 : 0;
+        var sc = canceled ? "#dc2626" : completed ? "#16a34a" : "#d97706";
+        var sb = canceled ? "#fef2f2" : completed ? "#f0fdf4" : "#fffbeb";
+        var sbo = canceled ? "#fecaca" : completed ? "#bbf7d0" : "#fde68a";
+        var sl = canceled
+          ? "Cancelado"
+          : completed
+            ? "Completado"
+            : "Pendiente";
+        var names = ["Recibido", "En Proceso", "Completado"];
+        var tl = "";
+        if (canceled) {
+          tl =
+            '<div style="text-align:center;padding:16px 0"><p style="color:#dc2626;font-size:14px;font-weight:600">Este pedido fue cancelado</p></div>';
+        } else {
+          tl = '<div class="tl">';
+          for (var i = 0; i < 3; i++) {
+            var done = i < step,
+              act = i === step;
+            var bg = done ? "#3b82f6" : act ? "#eff6ff" : "#f9fafb";
+            var br = done || act ? "#3b82f6" : "#e5e7eb";
+            var tc = done || act ? "#1e40af" : "#9ca3af";
+            var inn = done
+              ? '<span style="color:#fff;font-size:14px">&#10003;</span>'
+              : act
+                ? '<span style="color:#3b82f6;font-size:8px">&#9679;</span>'
+                : "";
+            var fw = act ? "700" : "500";
+            tl +=
+              '<div class="ts"><div class="tc" style="background:' +
+              bg +
+              ";border:2px solid " +
+              br +
+              '">' +
+              inn +
+              '</div><span class="tn" style="font-weight:' +
+              fw +
+              ";color:" +
+              tc +
+              '">' +
+              names[i] +
+              "</span></div>";
+            if (i < 2) {
+              var lc = done ? "#3b82f6" : "#e5e7eb";
+              tl += '<div class="tln" style="background:' + lc + '"></div>';
+            }
+          }
+          tl += "</div>";
+        }
+
+        document.title = "Pedido " + esc(o.tracking_token) + " - Subliprom";
+        document.getElementById("app").innerHTML =
+          '<div class="h"><div class="b">Subliprom</div><div class="t">' +
+          esc(o.order_name) +
+          '</div><div class="tk">&#127991; ' +
+          esc(o.tracking_token) +
+          '</div></div><div class="bd"><div class="sp" style="background:' +
+          sb +
+          ";border-color:" +
+          sbo +
+          ";color:" +
+          sc +
+          '"><div class="sd" style="background:' +
+          sc +
+          '"></div>' +
+          esc(sl) +
+          '</div><div class="sl">Progreso del pedido</div>' +
+          tl +
+          '<div class="sl">Detalles</div><div class="ig"><div class="ii"><div class="l">Cliente</div><div class="v">' +
+          (esc(o.client_name) || "\u2014") +
+          '</div></div><div class="ii"><div class="l">\u00c1rea</div><div class="v"><span class="wa">' +
+          (esc(o.work_area) || "\u2014") +
+          '</span></div></div><div class="ii"><div class="l">Entrega estimada</div><div class="v">' +
+          (o.scheduled_at ? fmtDate(o.scheduled_at) : "\u2014") +
+          '</div></div><div class="ii"><div class="l">Recibido</div><div class="v">' +
+          fmtDate(o.created_at) +
+          '</div></div></div><p class="ut">Actualizado ' +
+          relTime(o.updated_at) +
+          ' &middot; Se actualiza cada 60s</p></div><div class="ft"><div class="fb">Subliprom</div><div class="fs">Taller de sublimaci\u00f3n, bordado y banners</div></div>';
+      }
+
+      function showError() {
+        document.getElementById("app").innerHTML =
+          '<div style="text-align:center;padding:40px 32px"><div style="font-size:48px;margin-bottom:16px">&#128269;</div><h1 style="font-size:20px;font-weight:700;margin-bottom:8px">Pedido no encontrado</h1><p style="font-size:14px;color:#64748b;line-height:1.6">No encontramos tu pedido. Verific\u00e1 el enlace o contact\u00e1 al taller.</p><div style="margin-top:32px;font-size:12px;font-weight:600;color:#3b82f6">Subliprom</div></div>';
+      }
+
+      function load() {
+        if (!token) {
+          showError();
+          return;
+        }
+        fetch(API + "?token=" + encodeURIComponent(token))
+          .then(function (r) {
+            if (!r.ok) throw new Error();
+            return r.json();
+          })
+          .then(function (d) {
+            if (d.error) {
+              showError();
+            } else {
+              render(d);
+            }
+          })
+          .catch(function () {
+            showError();
+          });
+      }
+      load();
+      setInterval(load, 60000);
+    </script>
+  </body>
+</html>
